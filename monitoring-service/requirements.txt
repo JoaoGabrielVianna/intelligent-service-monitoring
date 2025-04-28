@@ -1,0 +1,11 @@
+fastapi          # 🚀 Framework web moderno e rápido
+#uvicorn          # ⚡ Servidor ASGI leve e eficiente
+uvicorn[standard]  # ⚡ Servidor ASGI leve e eficiente
+sqlalchemy       # 🗄️ ORM poderoso para banco de dados
+psycopg2-binary  # 🐘 Driver PostgreSQL para Python
+pydantic         # ✅ Validação de dados e parsing
+ipython        # 🐍 Ferramenta para executar código Python interativamente
+python-dotenv    # 🔑 Gerenciamento de variáveis de ambiente
+requests         # 🌐 Biblioteca para requisições HTTP
+# httpx            # 🌐 Cliente HTTP assíncrono
+APScheduler     # Biblioteca para agendamento de tarefas em Python.
