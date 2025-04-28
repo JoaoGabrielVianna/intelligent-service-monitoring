@@ -1,4 +1,3 @@
-readme_content = """
 # 📊 Intelligent Service Monitoring
 
 **Intelligent Service Monitoring** é uma plataforma de monitoramento inteligente de serviços web, composta por **três APIs independentes** desenvolvidas com **FastAPI**. Utiliza **Docker** e **PostgreSQL** para gestão de dados e oferece funcionalidades avançadas, como a coleta de status de serviços e geração de relatórios  sobre a performance e a qualidade dos serviços monitorados.
