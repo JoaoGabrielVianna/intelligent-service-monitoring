@@ -1,0 +1,68 @@
+services:
+  db:
+    image: postgres:14
+    container_name: intelligent-service-monitoring-database
+    restart: always
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    ports:
+      - "5432:5432"
+    volumes:
+      - monitoring_database_data:/var/lib/postgresql/data
+
+  monitoring-service:
+    build: ./monitoring-service
+    container_name: monitoring-service
+    volumes:
+      - ./.env:/app/.env
+    ports:
+      - "8000:8000"
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      - db
+
+  insights-service:
+    build: ./insights-service
+    container_name: insights-service
+    volumes:
+      - ./.env:/app/.env
+    ports:
+      - "8001:8001"
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}
+      - POSTGRES_HOST=db
+    depends_on:
+      - db
+  management-service:
+    build: ./management-service
+    container_name: management-service
+    volumes:
+      - ./.env:/app/.env
+    ports:
+      - "8002:8002"
+    environment:
+      SQLALCHEMY_DATABASE_URL: ${DATABASE_URL}
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    depends_on:
+      - db
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    ports:
+      - "3000:3000"
+    depends_on:
+      - monitoring-service
+      - insights-service
+      - management-service
+
+volumes:
+  monitoring_database_data:
